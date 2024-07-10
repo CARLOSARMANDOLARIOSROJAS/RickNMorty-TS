@@ -1,5 +1,6 @@
 import { CharacterCard } from "./components/CharacterCard";
 import { Navbar } from "./components/Navbar";
+import { useFavorites } from "./hooks/useFavorites";
 import { useFetchCharacters } from "./hooks/useFetchCharacters";
 import { useSearchCharacter } from "./hooks/useSearchCharacter";
 
@@ -8,12 +9,19 @@ function App() {
     useFetchCharacters();
   const { query, setQuery, filteredCharacters } =
     useSearchCharacter(characters);
+  const { favorites, toggleFavorite } = useFavorites();
+
   return (
     <>
       <Navbar query={query} setQuery={setQuery} />
       <ul className="grid grid-cols-3 gap-2 mb-2">
         {filteredCharacters.map((character) => (
-          <CharacterCard character={character} key={character.id} />
+          <CharacterCard 
+          character={character} 
+          key={character.id}
+          isFavorite={favorites.some((c) => c.id === character.id)}
+          toggleFavorite={() => toggleFavorite(character)}
+          />
         ))}
       </ul>
 
