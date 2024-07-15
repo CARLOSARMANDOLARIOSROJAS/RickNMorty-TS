@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-      <Navbar query={query} setQuery={setQuery} />
+      <Navbar query={query} setQuery={setQuery} favoritesCount={favorites} />
       <ul className="grid grid-cols-3 gap-2 mb-2">
         {filteredCharacters.map((character) => (
           <CharacterCard 
